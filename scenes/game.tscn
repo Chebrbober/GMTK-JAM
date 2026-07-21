@@ -1,5 +1,11 @@
-[gd_scene format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=2 format=3 uid="uid://60kgkd16lk48"]
+
+[ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 
 [node name="Game" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_uwrxv")
+main_menu_scene_path = "uid://cy18vdwi6ps75"

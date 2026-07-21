@@ -38,7 +38,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Transition:material:shader_parameter/grid_size")
+tracks/0/path = NodePath("Control/Transition:material:shader_parameter/grid_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -50,7 +50,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Transition:material:shader_parameter/progress")
+tracks/1/path = NodePath("Control/Transition:material:shader_parameter/progress")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -78,7 +78,7 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Transition:material:shader_parameter/grid_size")
+tracks/0/path = NodePath("Control/Transition:material:shader_parameter/grid_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -90,7 +90,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Transition:material:shader_parameter/progress")
+tracks/1/path = NodePath("Control/Transition:material:shader_parameter/progress")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -118,18 +118,20 @@ _data = {
 &"trans_animation": SubResource("Animation_aigh2")
 }
 
-[node name="TransitionScene" type="Control"]
-top_level = true
-z_index = 15
+[node name="TransitionScene" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+script = ExtResource("1_cqi5c")
+
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_cqi5c")
 
-[node name="Transition" type="TextureRect" parent="."]
+[node name="Transition" type="TextureRect" parent="Control"]
 self_modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_h2yge")
 layout_mode = 1
@@ -140,7 +142,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_aigh2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_vydtp")
 }

@@ -23,7 +23,7 @@ var _focus_return: Control
 func _ready() -> void:
 	if theme_data == null:
 		theme_data = MenuTheme.new()
-	process_mode = Node.PROCESS_MODE_ALWAYS  # menu still ticks when paused
+	process_mode = Node.PROCESS_MODE_INHERIT  # menu still ticks when paused
 	layer = 100
 	_build()
 	visible = false
