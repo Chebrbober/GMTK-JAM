@@ -1,0 +1,15 @@
+# Credits
+
+## Made by
+- Programming: Me
+- Art: Me and assets
+- Game Design: Me
+
+## Assets
+- Asset Name — Author (License)
+- Asset Name — Author (License)
+
+## Tools
+- Godot Engine
+- Blockbench
+- Aseprite / LibreSprite
