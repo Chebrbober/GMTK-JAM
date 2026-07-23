@@ -10,11 +10,7 @@ font_size = 32
 
 [node name="Game" type="Node2D"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("1_uwrxv")
-main_menu_scene_path = "uid://cy18vdwi6ps75"
 
 [node name="Timer" type="PanelContainer" parent="UI"]
 anchors_preset = -1
@@ -24,7 +20,7 @@ anchor_right = 0.5
 anchor_bottom = 0.025
 offset_left = -20.0
 offset_right = 20.0
-offset_bottom = 40.0
+offset_bottom = 55.0
 grow_horizontal = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Timer"]
@@ -45,9 +41,9 @@ vertical_alignment = 1
 wait_time = 15.0
 one_shot = true
 
-[node name="CutBar" type="PanelContainer" parent="UI"]
+[node name="CutBar" type="Control" parent="UI"]
 unique_name_in_owner = true
-anchors_preset = -1
+layout_mode = 3
 anchor_left = 0.5
 anchor_top = 0.9
 anchor_right = 0.5
@@ -60,24 +56,29 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_lbhrr")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/CutBar"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/CutBar"]
+layout_mode = 2
+offset_right = 300.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CutBar/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="RedZone" type="ColorRect" parent="UI/CutBar/MarginContainer"]
+[node name="RedZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer"]
 layout_mode = 2
 color = Color(0.698039, 0, 0, 1)
 
-[node name="YellowZone" type="ColorRect" parent="UI/CutBar/MarginContainer"]
+[node name="YellowZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 color = Color(0.686275, 0.866667, 0, 1)
 
-[node name="GreenZone" type="ColorRect" parent="UI/CutBar/MarginContainer/YellowZone"]
+[node name="GreenZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/YellowZone"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -93,6 +94,17 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 color = Color(0, 0.756863, 0.184314, 1)
+
+[node name="Indicator" type="ColorRect" parent="UI/CutBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2, 0)
+offset_right = 2.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("1_uwrxv")
+main_menu_scene_path = "uid://cy18vdwi6ps75"
 
 [node name="FoodSpawner" type="Node" parent="."]
 script = ExtResource("2_yqjtg")

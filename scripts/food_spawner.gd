@@ -16,7 +16,7 @@ func spawn() -> void:
 	var food = food_scene.instantiate()
 	food.position = start_pos
 	food.finished.connect(throw)
-	food.finished.conenct(cut_bar.update)
+	food.got_cut.connect(cut_bar.randomize_pos)
 	self.add_child(food)
 	move_to_center(food)
 	
