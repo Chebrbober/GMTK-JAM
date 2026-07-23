@@ -7,6 +7,8 @@ extends Control
 @export var time_to_move: float = 1.0
 var tween: Tween
 
+signal mouse_clicked
+
 func _ready() -> void:
 	if tween:
 		tween.kill()
@@ -18,3 +20,9 @@ func _ready() -> void:
 
 func randomize_pos():
 	yellow_zone.position.x = randf_range(0 + yellow_zone.size.x / 2, panel_container.size.x - yellow_zone.size.x / 2)
+
+func _on_click_area_gui_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("click"):
+		return
+	emit_signal("mouse_clicked")
+	randomize_pos()

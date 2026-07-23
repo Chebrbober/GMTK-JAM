@@ -16,7 +16,7 @@ func spawn() -> void:
 	var food = food_scene.instantiate()
 	food.position = start_pos
 	food.finished.connect(throw)
-	food.got_cut.connect(cut_bar.randomize_pos)
+	cut_bar.mouse_clicked.connect(food.cut)
 	self.add_child(food)
 	move_to_center(food)
 	
@@ -35,3 +35,5 @@ func throw(node: Node2D):
 	tween.tween_property(node, "position", end_pos, time_to_move).set_trans(Tween.TRANS_SINE).from_current()
 	await tween.finished
 	node.queue_free()
+	
+	spawn()

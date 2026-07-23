@@ -12,6 +12,15 @@ font_size = 32
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="ClickArea" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
 [node name="Timer" type="PanelContainer" parent="UI"]
 anchors_preset = -1
 anchor_left = 0.5
@@ -98,6 +107,7 @@ color = Color(0, 0.756863, 0.184314, 1)
 [node name="Indicator" type="ColorRect" parent="UI/CutBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2, 0)
+layout_mode = 0
 offset_right = 2.0
 offset_bottom = 40.0
 size_flags_horizontal = 0
@@ -109,3 +119,5 @@ main_menu_scene_path = "uid://cy18vdwi6ps75"
 [node name="FoodSpawner" type="Node" parent="."]
 script = ExtResource("2_yqjtg")
 food_scene = ExtResource("3_lnu2h")
+
+[connection signal="gui_input" from="UI/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]

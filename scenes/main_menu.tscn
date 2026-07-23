@@ -24,7 +24,7 @@ button_font_size = 16
 panel_corner_radius = 6
 panel_padding = 16
 menu_max_width = 480
-game_title = "Your Game Here"
+game_title = "KUTKATANA"
 game_subtitle = "A game for a GMTK Game Jam"
 metadata/_custom_type_script = "uid://ca5xkoaeirno6"
 
