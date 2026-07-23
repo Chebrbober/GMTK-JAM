@@ -7,7 +7,8 @@ extends Control
 @onready var indicator: ColorRect = %Indicator
 @export var speed: float = 200
 var direction: int = 1
-var multiplier: float = 1.2
+var size_multiplier: float = 1.2
+var speed_multiplier: float = 1.05
 var max_size: float = 150
 var can_cut: bool
 
@@ -60,15 +61,15 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 		
 func update_zone_sizes(is_hit: bool) -> void:
 	if is_hit and green_zone.size.x:
-		green_zone.size.x /= multiplier
-		yellow_zone.size.x /= multiplier
-		speed *= multiplier
+		green_zone.size.x /= size_multiplier
+		yellow_zone.size.x /= size_multiplier
+		speed *= speed_multiplier
 	elif !is_hit and yellow_zone.size.x < 150:
-		var yellow_zone_size: int = yellow_zone.size.x * multiplier
+		var yellow_zone_size: int = yellow_zone.size.x * (size_multiplier+0.3)
 		if yellow_zone_size <= 150:
 			yellow_zone.size.x = yellow_zone_size
-			green_zone.size.x *= multiplier
-			speed /= multiplier
+			green_zone.size.x *= size_multiplier
+			speed /= (speed_multiplier+0.3)
 
 func _on_food_spawner_cut_acces_changed(cut_acces: bool) -> void:
 	can_cut = cut_acces
