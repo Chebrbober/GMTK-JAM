@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=10 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxupbsk7issf7" path="res://scenes/food.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://gk7juyeev0lr" path="res://scripts/countdown.gd" id="4_iywne"]
 [ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dh2a7vqbrshx5" path="res://scenes/game_over.tscn" id="6_u5sy4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
 font_size = 32
@@ -159,6 +160,12 @@ label_settings = SubResource("LabelSettings_p57ef")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RushMode" type="Node" parent="UI/Combo"]
+
+[node name="GameOver" parent="UI" instance=ExtResource("6_u5sy4")]
+top_level = true
+z_index = 999
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("1_uwrxv")
 main_menu_scene_path = "uid://cy18vdwi6ps75"
@@ -167,3 +174,4 @@ main_menu_scene_path = "uid://cy18vdwi6ps75"
 [connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Countdown" method="_on_cut_bar_mouse_clicked"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo" method="_on_cut_bar_mouse_clicked"]
+[connection signal="timeout" from="UI/Countdown/ProgressBar/Label/Timer" to="UI/Countdown" method="_on_timer_timeout"]

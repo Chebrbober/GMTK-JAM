@@ -21,10 +21,13 @@ func _on_cut_bar_mouse_clicked(type) -> void:
 		CutType.Result.GOOD:
 			add_to_current_timer(0.5)
 		CutType.Result.MISS:
-			add_to_current_timer(-0.2)
+			add_to_current_timer(-2)
 			
 func add_to_current_timer(value: float) -> void:
 	var new_time: float = timer.time_left + value
 	if new_time > 0:
 		timer.stop()
 		timer.start(new_time)
+
+func _on_timer_timeout() -> void:
+	$"../GameOver".appear()
