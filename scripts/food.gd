@@ -8,7 +8,7 @@ class_name Food extends Node2D
 signal finished
 
 func _ready() -> void:
-	if available_sprites != null:
+	if available_sprites != null or available_sprites.is_empty():
 		sprite_2d.texture = available_sprites[randi_range(0, available_sprites.size() - 1)]
 	
 func cut() -> void:

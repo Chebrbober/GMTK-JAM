@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=5 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://bj5aths4ml4bm" path="res://scripts/food_spawner.gd" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bxupbsk7issf7" path="res://scenes/food.tscn" id="3_lnu2h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
+font_size = 32
 
 [node name="Game" type="Node2D"]
 
@@ -9,3 +14,36 @@
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_uwrxv")
 main_menu_scene_path = "uid://cy18vdwi6ps75"
+
+[node name="Timer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.025
+anchor_right = 0.5
+anchor_bottom = 0.025
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Timer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Timer/MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_uwrxv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Timer/MarginContainer/Label"]
+wait_time = 15.0
+one_shot = true
+
+[node name="FoodSpawner" type="Node" parent="."]
+script = ExtResource("2_yqjtg")
+food_scene = ExtResource("3_lnu2h")
