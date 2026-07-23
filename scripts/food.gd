@@ -6,6 +6,7 @@ class_name Food extends Node2D
 @export var available_sprites: Array[Texture2D]
 
 signal finished
+signal got_cut
 
 func _ready() -> void:
 	if available_sprites != null or available_sprites.is_empty():

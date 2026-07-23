@@ -5,6 +5,7 @@ class_name FoodSpawner extends Node
 @onready var start_pos = Vector2(screen_size.x+250, screen_size.y/2)
 @onready var center_pos = screen_size / 2
 @onready var end_pos = screen_size - screen_size - Vector2(500, 0)
+@onready var cut_bar = %CutBar
 var tween = create_tween()
 var time_to_move: float = 1.0
 
@@ -15,6 +16,7 @@ func spawn() -> void:
 	var food = food_scene.instantiate()
 	food.position = start_pos
 	food.finished.connect(throw)
+	food.finished.conenct(cut_bar.update)
 	self.add_child(food)
 	move_to_center(food)
 	
