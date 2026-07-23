@@ -7,13 +7,17 @@ extends Control
 @onready var indicator: ColorRect = %Indicator
 @export var speed: float = 200
 var direction: int = 1
-var tween: Tween
 var multiplier: float = 1.2
 var max_size: float = 150
 var can_cut: bool
 
-signal mouse_clicked(type: String)
-	
+signal mouse_clicked(type: CutType)
+
+func _ready() -> void:
+	yellow_zone.size.x *= 2
+	green_zone.size.x *= 2
+	randomize_pos()
+
 func _process(delta: float) -> void:
 	indicator.position.x += direction * speed * delta
 
@@ -41,15 +45,15 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 		return
 	if is_indicator_in_zone(green_zone):
 		print("perfect")
-		emit_signal("mouse_clicked", "perfect")
+		mouse_clicked.emit(CutType.Result.PERFECT)
 		update_zone_sizes(true)
 	elif is_indicator_in_zone(yellow_zone):
 		print("good")
-		emit_signal("mouse_clicked", "good")
+		mouse_clicked.emit(CutType.Result.GOOD)
 		update_zone_sizes(true)
 	else:
 		print('miss')
-		emit_signal("mouse_clicked", "miss")
+		mouse_clicked.emit(CutType.Result.MISS)
 		update_zone_sizes(false)
 	randomize_pos()
 	

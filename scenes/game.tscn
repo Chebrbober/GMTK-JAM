@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=9 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bj5aths4ml4bm" path="res://scripts/food_spawner.gd" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://bxupbsk7issf7" path="res://scenes/food.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://gk7juyeev0lr" path="res://scripts/countdown.gd" id="4_iywne"]
+[ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
+font_size = 64
 
 [node name="Game" type="Node2D"]
 
@@ -58,7 +62,7 @@ layout_mode = 2
 color = Color(0.698039, 0, 0, 1)
 
 [node name="YellowZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 color = Color(0.686275, 0.866667, 0, 1)
@@ -82,7 +86,7 @@ color = Color(0, 0.756863, 0.184314, 1)
 
 [node name="Indicator" type="ColorRect" parent="UI/CutBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(3, 0)
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 0
 offset_right = 2.0
 offset_bottom = 40.0
@@ -129,6 +133,32 @@ vertical_alignment = 1
 wait_time = 15.0
 one_shot = true
 
+[node name="Combo" type="Control" parent="UI"]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_p57ef")
+
+[node name="Label" type="Label" parent="UI/Combo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = SubResource("LabelSettings_p57ef")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("1_uwrxv")
 main_menu_scene_path = "uid://cy18vdwi6ps75"
@@ -136,3 +166,4 @@ main_menu_scene_path = "uid://cy18vdwi6ps75"
 [connection signal="cut_acces_changed" from="UI/FoodSpawner" to="UI/CutBar" method="_on_food_spawner_cut_acces_changed"]
 [connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Countdown" method="_on_cut_bar_mouse_clicked"]
+[connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo" method="_on_cut_bar_mouse_clicked"]

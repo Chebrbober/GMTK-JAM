@@ -17,7 +17,9 @@ func _ready() -> void:
 		sprite_2d.texture.get_size()
 	)
 	
-func cut(_type: String) -> void:
+func cut(type: CutType.Result) -> void:
+	if type == CutType.Result.MISS:
+		return
 	cuts_done += 1
 	
 	var remaining = cuts_required - cuts_done
