@@ -4,6 +4,7 @@ class_name Food extends Node2D
 @export var cuts_required: int = 5
 @export var cuts_done: int = 0
 @export var available_sprites: Array[Texture2D]
+var can_cut: bool = true
 
 signal finished(node: Node2D)
 
@@ -18,6 +19,8 @@ func _ready() -> void:
 	)
 	
 func cut() -> void:
+	if !can_cut:
+		return
 	cuts_done += 1
 	
 	var remaining = cuts_required - cuts_done
@@ -28,4 +31,5 @@ func cut() -> void:
 	sprite_2d.region_rect = rect
 	
 	if cuts_done == cuts_required:
+		can_cut = false
 		finished.emit(self)
