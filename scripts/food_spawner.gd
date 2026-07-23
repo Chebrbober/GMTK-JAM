@@ -8,6 +8,9 @@ class_name FoodSpawner extends Node
 @onready var cut_bar = %CutBar
 var tween = create_tween()
 var time_to_move: float = 1.0
+var cut_acces: bool = false
+
+signal cut_acces_changed(can_cut: bool)
 
 func _ready() -> void:
 	spawn()
@@ -26,14 +29,15 @@ func move_to_center(node: Node2D) -> void:
 		
 	tween = create_tween()
 	tween.tween_property(node, "position", center_pos, time_to_move).set_trans(Tween.TRANS_BOUNCE).from_current()
+	await tween.finished
+	cut_acces = true
+	cut_acces_changed.emit(cut_acces)
 	
 func throw(node: Node2D):
 	if tween:
 		tween.kill()
-		
-	tween = create_tween()
-	tween.tween_property(node, "position", end_pos, time_to_move).set_trans(Tween.TRANS_SINE).from_current()
-	await tween.finished
-	node.queue_free()
 	
+	cut_acces = false
+	cut_acces_changed.emit(cut_acces)
+	node.queue_free()
 	spawn()
