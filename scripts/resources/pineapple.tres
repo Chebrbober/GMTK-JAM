@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FoodResource" load_steps=3 format=3 uid="uid://bqailmn035a1d"]
+
+[ext_resource type="Script" uid="uid://sf08sknbqt15" path="res://scripts/resources/food_res.gd" id="1_l5pdf"]
+[ext_resource type="Texture2D" uid="uid://daoh52srj4wcq" path="res://assets/pineapple.png" id="2_4fs6u"]
+
+[resource]
+script = ExtResource("1_l5pdf")
+cuts_required = 10
+sprite = ExtResource("2_4fs6u")
+juice_particles_color = Color(0.929412, 0.713726, 0, 1)
+metadata/_custom_type_script = "uid://sf08sknbqt15"

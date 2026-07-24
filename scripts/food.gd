@@ -1,26 +1,39 @@
 class_name Food extends Node2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var slice_particles: CPUParticles2D = $SliceParticles
+@onready var juice_particles: CPUParticles2D = $JuiceParticles
 @export var cuts_required: int = 5
 @export var cuts_done: int = 0
-@export var available_sprites: Array[Texture2D]
+@export var data: FoodResource
 
 signal finished(node: Node2D)
 
 func _ready() -> void:
-	if !available_sprites.is_empty():
-		sprite_2d.texture = available_sprites[randi_range(0, available_sprites.size() - 1)]
-		
+	setup(data)
 	sprite_2d.region_enabled = true
 	sprite_2d.region_rect = Rect2(
 		Vector2.ZERO,
 		sprite_2d.texture.get_size()
 	)
 	
+func setup(data: FoodResource) -> void:
+	cuts_required = data.cuts_required
+	sprite_2d.texture = data.sprite
+	slice_particles.texture = data.slice_sprite
+	juice_particles.color = data.juice_particles_color
+
 func cut(type: CutType.Result) -> void:
 	if type == CutType.Result.MISS:
 		return
 	cuts_done += 1
+	
+	juice_particles.position.x = sprite_2d.texture.get_size().x / 2
+	juice_particles.emission_rect_extents = Vector2(1, sprite_2d.texture.get_size().y / 2)
+	juice_particles.emitting = true
+	
+	slice_particles.position.x = sprite_2d.texture.get_size().x / 2
+	slice_particles.emitting = true
 	
 	var remaining = cuts_required - cuts_done
 	var fraction = float(remaining) / cuts_required

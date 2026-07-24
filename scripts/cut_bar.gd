@@ -12,14 +12,14 @@ extends Control
 var direction: int = 1
 var size_multiplier: float = 1.2
 var speed_multiplier: float = 1.05
-var max_size: float = 150
+var max_size: float = 350
 var can_cut: bool
 
 signal mouse_clicked(type: CutType)
 
 func _ready() -> void:
-	yellow_zone.size.x *= 2
-	green_zone.size.x *= 2
+	yellow_zone.size.x *= 5
+	green_zone.size.x *= 5
 	randomize_pos()
 	
 func get_current_speed():
@@ -75,12 +75,12 @@ func update_zone_sizes(is_hit: bool) -> void:
 		if temp_speed <= 0:
 			speed *= speed_multiplier
 	elif !is_hit and yellow_zone.size.x < 150:
-		var yellow_zone_size: int = yellow_zone.size.x * (size_multiplier+0.3)
+		var yellow_zone_size: int = yellow_zone.size.x * (size_multiplier+0.5)
 		if yellow_zone_size <= 150:
 			yellow_zone.size.x = yellow_zone_size
-			green_zone.size.x *= size_multiplier
+			green_zone.size.x *= (size_multiplier+0.5)
 			if temp_speed <= 0:
-				speed /= (speed_multiplier+0.3)
+				speed /= speed_multiplier
 
 func _on_food_spawner_cut_acces_changed(cut_acces: bool) -> void:
 	can_cut = cut_acces

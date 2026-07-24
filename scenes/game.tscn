@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=21 format=3 uid="uid://60kgkd16lk48"]
 
+[ext_resource type="Texture2D" uid="uid://djvoj8lutmv8w" path="res://assets/cutting_board.png" id="1_trtic"]
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bj5aths4ml4bm" path="res://scripts/food_spawner.gd" id="2_yqjtg"]
@@ -114,14 +115,17 @@ _data = {
 
 [node name="Game" type="Node2D"]
 
-[node name="UI" type="CanvasLayer" parent="."]
-process_mode = 1
+[node name="CuttingBoard" type="Sprite2D" parent="."]
+position = Vector2(599.049, 388.75)
+scale = Vector2(1.0788, 1.0788)
+texture = ExtResource("1_trtic")
 
-[node name="FoodSpawner" type="Node" parent="UI"]
+[node name="FoodSpawner" type="Node" parent="."]
 script = ExtResource("2_yqjtg")
 food_scene = ExtResource("3_lnu2h")
+resources_folder = "/home/beaver/Projects/gmtk-game-jam/scripts/resources"
 
-[node name="ClickArea" type="Control" parent="UI/FoodSpawner"]
+[node name="ClickArea" type="Control" parent="FoodSpawner"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -129,6 +133,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 1
 
 [node name="CutBar" type="Control" parent="UI"]
 unique_name_in_owner = true
@@ -314,7 +321,7 @@ unique_name_in_owner = true
 top_level = true
 z_index = 150
 position = Vector2(838, 375)
-scale = Vector2(1, 0.655)
+scale = Vector2(1.165, 0.795)
 texture = ExtResource("12_dinhu")
 script = ExtResource("12_kvuet")
 
@@ -327,9 +334,9 @@ libraries = {
 script = ExtResource("1_uwrxv")
 main_menu_scene_path = "uid://cy18vdwi6ps75"
 
-[connection signal="cut_acces_changed" from="UI/FoodSpawner" to="UI/CutBar" method="_on_food_spawner_cut_acces_changed"]
-[connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]
-[connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/Combo/RushMode" method="_on_click_area_gui_input"]
+[connection signal="cut_acces_changed" from="FoodSpawner" to="UI/CutBar" method="_on_food_spawner_cut_acces_changed"]
+[connection signal="gui_input" from="FoodSpawner/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]
+[connection signal="gui_input" from="FoodSpawner/ClickArea" to="UI/Combo/RushMode" method="_on_click_area_gui_input"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Countdown" method="_on_cut_bar_mouse_clicked"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo" method="_on_cut_bar_mouse_clicked"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/RandomEvents/FrozenMode" method="_on_cut_bar_mouse_clicked"]

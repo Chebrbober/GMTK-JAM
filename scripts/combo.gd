@@ -32,11 +32,9 @@ func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 		
 func check_upgrade() -> void:
 	if succesful_cuts_done > 1:
-		if succesful_cuts_done % 30 == 0:
+		if succesful_cuts_done % 20 == 0:
 			rush_mode.enable_mode()
-		elif succesful_cuts_done % 20 == 0:
-			countdown.add_to_current_timer(5)
 		elif succesful_cuts_done % 10 == 0:
-			countdown.add_to_current_timer(3)
+			countdown.add_to_current_timer(5)
 		else:
 			countdown.add_to_current_timer(1)

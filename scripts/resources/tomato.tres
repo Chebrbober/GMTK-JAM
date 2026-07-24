@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FoodResource" load_steps=4 format=3 uid="uid://babb2au7ofvxr"]
+
+[ext_resource type="Script" uid="uid://sf08sknbqt15" path="res://scripts/resources/food_res.gd" id="1_aqv51"]
+[ext_resource type="Texture2D" uid="uid://n4rongdf08r5" path="res://assets/tomato.png" id="2_8fekj"]
+[ext_resource type="Texture2D" uid="uid://bkdcq7gg2qs7g" path="res://assets/tomato_slice.png" id="2_hdpgh"]
+
+[resource]
+script = ExtResource("1_aqv51")
+cuts_required = 3
+sprite = ExtResource("2_8fekj")
+slice_sprite = ExtResource("2_hdpgh")
+juice_particles_color = Color(0.992157, 0, 0.0941176, 1)
+metadata/_custom_type_script = "uid://sf08sknbqt15"
