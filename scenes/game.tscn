@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=13 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
@@ -8,12 +8,15 @@
 [ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://blv2awfnepc1i" path="res://scripts/rush_mode.gd" id="6_gee14"]
 [ext_resource type="PackedScene" uid="uid://dh2a7vqbrshx5" path="res://scenes/game_over.tscn" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://c3151o76p6te8" path="res://scripts/frozen_mode.gd" id="8_0tnpc"]
+[ext_resource type="Script" uid="uid://5sq84prlrrmv" path="res://scripts/random_events.gd" id="8_vtaks"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
 font_size = 64
+font_color = Color(0.490196, 1, 0.454902, 1)
 
 [node name="Game" type="Node2D"]
 
@@ -62,17 +65,29 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="RedZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer"]
+[node name="ManualControl" type="Control" parent="UI/CutBar/PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="RedZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/ManualControl"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.698039, 0, 0, 1)
 
-[node name="YellowZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(30, 0)
+[node name="YellowZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/ManualControl"]
+custom_minimum_size = Vector2(30, 40)
 layout_mode = 2
+offset_left = 180.0
+offset_right = 210.0
+offset_bottom = 40.0
 size_flags_horizontal = 4
 color = Color(0.686275, 0.866667, 0, 1)
 
-[node name="GreenZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/YellowZone"]
+[node name="GreenZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/ManualControl/YellowZone"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -134,6 +149,8 @@ vertical_alignment = 1
 wait_time = 15.0
 one_shot = true
 
+[node name="ScoreSpawner" type="Node" parent="UI/Countdown"]
+
 [node name="Combo" type="Control" parent="UI"]
 layout_mode = 3
 anchor_left = 0.5
@@ -168,6 +185,24 @@ visible = false
 top_level = true
 z_index = 999
 
+[node name="RandomEvents" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_vtaks")
+
+[node name="FrozenMode" type="Node" parent="UI/RandomEvents"]
+unique_name_in_owner = true
+script = ExtResource("8_0tnpc")
+
+[node name="Timer" type="Timer" parent="UI/RandomEvents"]
+wait_time = 20.0
+autostart = true
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("1_uwrxv")
 main_menu_scene_path = "uid://cy18vdwi6ps75"
@@ -177,5 +212,6 @@ main_menu_scene_path = "uid://cy18vdwi6ps75"
 [connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/Combo/RushMode" method="_on_click_area_gui_input"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Countdown" method="_on_cut_bar_mouse_clicked"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo" method="_on_cut_bar_mouse_clicked"]
-[connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo/RushMode" method="_on_cut_bar_mouse_clicked"]
+[connection signal="mouse_clicked" from="UI/CutBar" to="UI/RandomEvents/FrozenMode" method="_on_cut_bar_mouse_clicked"]
 [connection signal="timeout" from="UI/Countdown/ProgressBar/Label/Timer" to="UI/Countdown" method="_on_timer_timeout"]
+[connection signal="timeout" from="UI/RandomEvents/Timer" to="UI/RandomEvents" method="pick_random_event"]

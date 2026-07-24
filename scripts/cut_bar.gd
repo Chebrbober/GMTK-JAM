@@ -1,10 +1,11 @@
 extends Control
 
-@onready var red_zone: ColorRect = $PanelContainer/MarginContainer/RedZone
-@onready var yellow_zone: ColorRect = $PanelContainer/MarginContainer/YellowZone
-@onready var green_zone: ColorRect = $PanelContainer/MarginContainer/YellowZone/GreenZone
+@onready var red_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/RedZone
+@onready var yellow_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/YellowZone
+@onready var green_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/YellowZone/GreenZone
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var indicator: ColorRect = %Indicator
+@onready var frozen_mode: Node = %FrozenMode
 @export var speed: float = 150
 @export var temp_speed: float = -1
 var direction: int = 1
@@ -52,6 +53,9 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 		print("perfect")
 		mouse_clicked.emit(CutType.Result.PERFECT)
 		update_zone_sizes(true)
+	elif frozen_mode.frozen_zone and is_indicator_in_zone(frozen_mode.frozen_zone):
+		print("frozen")
+		mouse_clicked.emit(CutType.Result.FROZEN)
 	elif is_indicator_in_zone(yellow_zone):
 		print("good")
 		mouse_clicked.emit(CutType.Result.GOOD)
@@ -61,8 +65,7 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 		mouse_clicked.emit(CutType.Result.MISS)
 		update_zone_sizes(false)
 	randomize_pos()
-	
-		
+
 func update_zone_sizes(is_hit: bool) -> void:
 	if is_hit and green_zone.size.x:
 		green_zone.size.x /= size_multiplier

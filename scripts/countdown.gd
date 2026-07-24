@@ -14,11 +14,11 @@ func _process(_delta: float) -> void:
 	label.text = "%.1f" % timer.time_left
 	progress_bar.value = timer.time_left
 
-func _on_cut_bar_mouse_clicked(type) -> void:
+func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 	match type:
 		CutType.Result.PERFECT:
 			add_to_current_timer(1)
-		CutType.Result.GOOD:
+		CutType.Result.GOOD or CutType.Result.FROZEN:
 			add_to_current_timer(0.5)
 		CutType.Result.MISS:
 			add_to_current_timer(-2)

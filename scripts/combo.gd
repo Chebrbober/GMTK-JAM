@@ -11,7 +11,7 @@ func _ready() -> void:
 	label.visible = false
 
 func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
-	if type in [CutType.Result.PERFECT, CutType.Result.GOOD]:
+	if type in [CutType.Result.PERFECT, CutType.Result.GOOD, CutType.Result.FROZEN]:
 		if tween:
 			tween.kill()
 		tween = create_tween()
@@ -31,12 +31,12 @@ func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 		label.visible = false
 		
 func check_upgrade() -> void:
-	if succesful_cuts_done != 1:
-		if succesful_cuts_done % 30:
+	if succesful_cuts_done > 1:
+		if succesful_cuts_done % 30 == 0:
 			rush_mode.enable_mode()
-		elif succesful_cuts_done % 20:
+		elif succesful_cuts_done % 20 == 0:
 			countdown.add_to_current_timer(5)
-		elif succesful_cuts_done % 10:
+		elif succesful_cuts_done % 10 == 0:
 			countdown.add_to_current_timer(3)
-	elif succesful_cuts_done > 1:
-		countdown.add_to_current_timer(1)
+		else:
+			countdown.add_to_current_timer(1)
