@@ -3,6 +3,7 @@ extends Control
 @onready var red_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/RedZone
 @onready var yellow_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/YellowZone
 @onready var green_zone: ColorRect = $PanelContainer/MarginContainer/ManualControl/YellowZone/GreenZone
+@onready var knife: Sprite2D = %Knife
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var indicator: ColorRect = %Indicator
 @onready var frozen_mode: Node = %FrozenMode
@@ -64,6 +65,7 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 		print('miss')
 		mouse_clicked.emit(CutType.Result.MISS)
 		update_zone_sizes(false)
+	knife.play_cut()
 	randomize_pos()
 
 func update_zone_sizes(is_hit: bool) -> void:
