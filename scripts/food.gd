@@ -3,6 +3,7 @@ class_name Food extends Node2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var slice_particles: CPUParticles2D = $SliceParticles
 @onready var juice_particles: CPUParticles2D = $JuiceParticles
+@onready var particles_spawner: Node = $ParticlesSpawner
 @export var cuts_required: int = 5
 @export var cuts_done: int = 0
 @export var data: FoodResource
@@ -28,12 +29,7 @@ func cut(type: CutType.Result) -> void:
 		return
 	cuts_done += 1
 	
-	juice_particles.position.x = sprite_2d.texture.get_size().x / 2
-	juice_particles.emission_rect_extents = Vector2(1, sprite_2d.texture.get_size().y / 2)
-	juice_particles.emitting = true
-	
-	slice_particles.position.x = sprite_2d.texture.get_size().x / 2
-	slice_particles.emitting = true
+	particles_spawner.spawn_particles()
 	
 	var remaining = cuts_required - cuts_done
 	var fraction = float(remaining) / cuts_required

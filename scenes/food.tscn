@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxupbsk7issf7"]
+[gd_scene load_steps=4 format=3 uid="uid://bxupbsk7issf7"]
 
 [ext_resource type="Script" uid="uid://bqb2x03be0lm0" path="res://scripts/food.gd" id="1_xven1"]
+[ext_resource type="Script" uid="uid://cuob08vq8pmri" path="res://scripts/particles_spawner.gd" id="2_af40f"]
 
 [sub_resource type="Curve" id="Curve_xven1"]
 _data = [Vector2(0, 0.977528), 0.0, 0.0, 0, 0, Vector2(0.995763, 0), 0.0, 0.0, 0, 0]
@@ -9,13 +10,16 @@ point_count = 2
 [node name="Food" type="Node2D"]
 script = ExtResource("1_xven1")
 
+[node name="ParticlesSpawner" type="Node" parent="."]
+script = ExtResource("2_af40f")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="SliceParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 1
+lifetime = 2.0
 one_shot = true
-speed_scale = 1.5
 gravity = Vector2(30, 980)
 initial_velocity_min = 217.05
 initial_velocity_max = 705.43
@@ -25,7 +29,6 @@ linear_accel_max = 23.26
 
 [node name="JuiceParticles" type="CPUParticles2D" parent="."]
 emitting = false
-lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 randomness = 0.19
@@ -34,8 +37,8 @@ emission_shape = 3
 emission_rect_extents = Vector2(1, 1)
 spread = 90.0
 gravity = Vector2(0, 580)
-initial_velocity_min = 73.35
-initial_velocity_max = 144.78
+initial_velocity_min = 131.6
+initial_velocity_max = 289.83
 angular_velocity_min = 11.16
 angular_velocity_max = 55.81
 angle_max = 78.1
