@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=11 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxupbsk7issf7" path="res://scenes/food.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://gk7juyeev0lr" path="res://scripts/countdown.gd" id="4_iywne"]
 [ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://blv2awfnepc1i" path="res://scripts/rush_mode.gd" id="6_gee14"]
 [ext_resource type="PackedScene" uid="uid://dh2a7vqbrshx5" path="res://scenes/game_over.tscn" id="6_u5sy4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
@@ -38,18 +39,21 @@ anchor_left = 0.5
 anchor_top = 0.9
 anchor_right = 0.5
 anchor_bottom = 0.9
-offset_left = -150.0
-offset_top = -20.0
-offset_right = 150.0
-offset_bottom = 20.0
+offset_left = -200.0
+offset_top = -25.0
+offset_right = 200.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_lbhrr")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/CutBar"]
-layout_mode = 2
-offset_right = 300.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/CutBar/PanelContainer"]
 layout_mode = 2
@@ -71,15 +75,10 @@ color = Color(0.686275, 0.866667, 0, 1)
 [node name="GreenZone" type="ColorRect" parent="UI/CutBar/PanelContainer/MarginContainer/YellowZone"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -15.0
-offset_right = 2.5
-offset_bottom = 15.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -88,9 +87,10 @@ color = Color(0, 0.756863, 0.184314, 1)
 [node name="Indicator" type="ColorRect" parent="UI/CutBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 0)
-layout_mode = 0
-offset_right = 2.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
 size_flags_horizontal = 0
 
 [node name="Countdown" type="Control" parent="UI"]
@@ -161,8 +161,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RushMode" type="Node" parent="UI/Combo"]
+script = ExtResource("6_gee14")
 
 [node name="GameOver" parent="UI" instance=ExtResource("6_u5sy4")]
+visible = false
 top_level = true
 z_index = 999
 
@@ -172,6 +174,8 @@ main_menu_scene_path = "uid://cy18vdwi6ps75"
 
 [connection signal="cut_acces_changed" from="UI/FoodSpawner" to="UI/CutBar" method="_on_food_spawner_cut_acces_changed"]
 [connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/CutBar" method="_on_click_area_gui_input"]
+[connection signal="gui_input" from="UI/FoodSpawner/ClickArea" to="UI/Combo/RushMode" method="_on_click_area_gui_input"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Countdown" method="_on_cut_bar_mouse_clicked"]
 [connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo" method="_on_cut_bar_mouse_clicked"]
+[connection signal="mouse_clicked" from="UI/CutBar" to="UI/Combo/RushMode" method="_on_cut_bar_mouse_clicked"]
 [connection signal="timeout" from="UI/Countdown/ProgressBar/Label/Timer" to="UI/Countdown" method="_on_timer_timeout"]

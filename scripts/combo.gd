@@ -4,7 +4,7 @@ extends Control
 @onready var start_size: Vector2 = label.size
 @onready var countdown: Control = $"../Countdown"
 @onready var rush_mode: Node = $RushMode
-var succesful_cuts_done: int = 0
+@export var succesful_cuts_done: int = 0
 var tween: Tween
 
 func _ready() -> void:
@@ -31,12 +31,12 @@ func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 		label.visible = false
 		
 func check_upgrade() -> void:
-	if succesful_cuts_done % 30 == 0:
-		pass
-		# RushMode.enable_mode()
-	elif succesful_cuts_done % 20 == 0:
-		countdown.add_to_current_timer(5)
-	elif succesful_cuts_done % 10 == 0:
-		countdown.add_to_current_timer(3)
+	if succesful_cuts_done != 1:
+		if succesful_cuts_done % 30:
+			rush_mode.enable_mode()
+		elif succesful_cuts_done % 20:
+			countdown.add_to_current_timer(5)
+		elif succesful_cuts_done % 10:
+			countdown.add_to_current_timer(3)
 	elif succesful_cuts_done > 1:
 		countdown.add_to_current_timer(1)

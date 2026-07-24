@@ -5,7 +5,8 @@ extends Control
 @onready var green_zone: ColorRect = $PanelContainer/MarginContainer/YellowZone/GreenZone
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var indicator: ColorRect = %Indicator
-@export var speed: float = 200
+@export var speed: float = 150
+@export var temp_speed: float = -1
 var direction: int = 1
 var size_multiplier: float = 1.2
 var speed_multiplier: float = 1.05
@@ -18,9 +19,12 @@ func _ready() -> void:
 	yellow_zone.size.x *= 2
 	green_zone.size.x *= 2
 	randomize_pos()
+	
+func get_current_speed():
+	return temp_speed if temp_speed > 0 else speed
 
 func _process(delta: float) -> void:
-	indicator.position.x += direction * speed * delta
+	indicator.position.x += direction * get_current_speed() * delta
 
 	var right = panel_container.size.x - 5
 
@@ -63,13 +67,15 @@ func update_zone_sizes(is_hit: bool) -> void:
 	if is_hit and green_zone.size.x:
 		green_zone.size.x /= size_multiplier
 		yellow_zone.size.x /= size_multiplier
-		speed *= speed_multiplier
+		if temp_speed <= 0:
+			speed *= speed_multiplier
 	elif !is_hit and yellow_zone.size.x < 150:
 		var yellow_zone_size: int = yellow_zone.size.x * (size_multiplier+0.3)
 		if yellow_zone_size <= 150:
 			yellow_zone.size.x = yellow_zone_size
 			green_zone.size.x *= size_multiplier
-			speed /= (speed_multiplier+0.3)
+			if temp_speed <= 0:
+				speed /= (speed_multiplier+0.3)
 
 func _on_food_spawner_cut_acces_changed(cut_acces: bool) -> void:
 	can_cut = cut_acces
