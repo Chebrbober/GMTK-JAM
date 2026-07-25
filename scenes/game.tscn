@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=31 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Texture2D" uid="uid://bcobyn2d5v8bo" path="res://assets/bg.jpg" id="1_ir15t"]
 [ext_resource type="Texture2D" uid="uid://djvoj8lutmv8w" path="res://assets/cutting_board.png" id="1_trtic"]
@@ -7,11 +7,14 @@
 [ext_resource type="Script" uid="uid://bj5aths4ml4bm" path="res://scripts/food_spawner.gd" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://bxupbsk7issf7" path="res://scenes/food.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://gk7juyeev0lr" path="res://scripts/countdown.gd" id="4_iywne"]
+[ext_resource type="AudioStream" uid="uid://cgvw27bwr6hbe" path="res://assets/wings_flap_large.wav" id="5_bt5mj"]
 [ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://blv2awfnepc1i" path="res://scripts/rush_mode.gd" id="6_gee14"]
 [ext_resource type="PackedScene" uid="uid://dh2a7vqbrshx5" path="res://scenes/game_over.tscn" id="6_u5sy4"]
 [ext_resource type="Script" uid="uid://c3151o76p6te8" path="res://scripts/frozen_mode.gd" id="8_0tnpc"]
 [ext_resource type="Script" uid="uid://5sq84prlrrmv" path="res://scripts/random_events.gd" id="8_vtaks"]
+[ext_resource type="AudioStream" uid="uid://ryypdghnfdee" path="res://assets/amen-break-f-180-bpm-16-bars.mp3" id="9_5newe"]
+[ext_resource type="Shader" uid="uid://btitlf3h0pi1t" path="res://scripts/shaders/speed_lines.gdshader" id="9_37s47"]
 [ext_resource type="Shader" uid="uid://dwtppe48q0v5y" path="res://scripts/shaders/frozen.gdshader" id="10_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://dwp7bu1aq307t" path="res://assets/knife.png" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://mwkecv5rwwhh" path="res://scripts/knife.gd" id="12_kvuet"]
@@ -27,6 +30,15 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
 font_size = 64
 font_color = Color(0.490196, 1, 0.454902, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bt5mj"]
+shader = ExtResource("9_37s47")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_count = 60
+shader_parameter/line_width = 0.1
+shader_parameter/min_length = 0.3
+shader_parameter/max_length = 0.7
+shader_parameter/speed = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kvpfn"]
 shader = ExtResource("10_kvpfn")
@@ -140,6 +152,7 @@ scale = Vector2(1.0788, 1.0788)
 texture = ExtResource("1_trtic")
 
 [node name="FoodSpawner" type="Node" parent="."]
+process_mode = 1
 script = ExtResource("2_yqjtg")
 food_scene = ExtResource("3_lnu2h")
 resources_folder = "/home/beaver/Projects/gmtk-game-jam/scripts/resources"
@@ -152,6 +165,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="WindAudio" type="AudioStreamPlayer" parent="FoodSpawner"]
+process_mode = 1
+stream = ExtResource("5_bt5mj")
+bus = &"Sfx"
 
 [node name="UI" type="CanvasLayer" parent="."]
 process_mode = 1
@@ -301,6 +319,20 @@ vertical_alignment = 1
 [node name="RushMode" type="Node" parent="UI/Combo"]
 script = ExtResource("6_gee14")
 
+[node name="ShaderRect" type="ColorRect" parent="UI/Combo/RushMode"]
+visible = false
+material = SubResource("ShaderMaterial_bt5mj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DrumAndBaseSound" type="AudioStreamPlayer" parent="UI/Combo"]
+stream = ExtResource("9_5newe")
+bus = &"Music"
+
 [node name="GameOver" parent="UI" instance=ExtResource("6_u5sy4")]
 visible = false
 top_level = true
@@ -359,6 +391,7 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Knife"]
+max_polyphony = 2
 bus = &"Sfx"
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]

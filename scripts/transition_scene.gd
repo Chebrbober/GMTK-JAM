@@ -8,16 +8,22 @@ func _ready() -> void:
 func transition_to(path_to_scene: String) -> void:
 	if Engine.time_scale != 1:
 		Engine.time_scale = 1
-	animation_player.play("trans_animation")
-	var timer = get_tree().create_timer(1.0)
-	await timer.timeout
 	get_tree().paused = true
-	get_parent().process_mode = Node.PROCESS_MODE_DISABLED
+	animation_player.play("trans_animation")
+	var timer = get_tree().create_timer(0.9)
+	await timer.timeout
 	switch_scene(path_to_scene)
-	await animation_player.animation_finished
-	visible = false
-	get_parent().process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().paused = false
 	
 func switch_scene(destination: String) -> void:
 	get_tree().change_scene_to_file(destination)
+	get_parent().process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().paused = true
+	
+func toggle_pause(to_resume: bool) -> void:
+	if to_resume:
+		get_tree().paused = false
+		get_parent().process_mode = Node.PROCESS_MODE_ALWAYS
+	else:
+		get_parent().process_mode = Node.PROCESS_MODE_DISABLED
+		get_tree().paused = true
+		

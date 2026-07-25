@@ -30,6 +30,8 @@ func create_zone() -> void:
 			break
 			
 	manual_control.add_child(frozen_zone)
+	var timer = get_tree().create_timer(5.0)
+	timer.timeout.connect(delete_on_timeout)
 
 func enable_mode() -> void:
 	if tween:
@@ -84,4 +86,9 @@ func disable_mode() -> void:
 func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 	if type == CutType.Result.FROZEN:
 		enable_mode()
+		if is_instance_valid(frozen_zone):
+			frozen_zone.queue_free()
+		
+func delete_on_timeout() -> void:
+	if is_instance_valid(frozen_zone):
 		frozen_zone.queue_free()

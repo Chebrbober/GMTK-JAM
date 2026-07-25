@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh2a7vqbrshx5"]
+[gd_scene load_steps=4 format=3 uid="uid://dh2a7vqbrshx5"]
 
 [ext_resource type="Script" uid="uid://b23j4cqp64kr3" path="res://scripts/game_over.gd" id="1_xeevv"]
+[ext_resource type="Theme" uid="uid://4r6b2cnujbph" path="res://addons/settings_menus/waste_no_space.theme" id="2_wqhvx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nqlu"]
 font_size = 96
@@ -56,6 +57,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_wqhvx")
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
