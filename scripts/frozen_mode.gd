@@ -6,9 +6,12 @@ extends Node
 @onready var yellow_zone: ColorRect = $"../../CutBar/PanelContainer/MarginContainer/ManualControl/YellowZone"
 @onready var shader_rect: ColorRect = $ShaderRect
 @onready var material := shader_rect.material
+@onready var current_modes: Control = $"../../CurrentModes"
 @onready var wind_stream_player: AudioStreamPlayer = $WindStreamPlayer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var timer: Timer = $Timer
 @export var frozen_zone: ColorRect
+var zone_id := get_instance_id()
 var tween: Tween
 
 func create_zone() -> void:
@@ -44,6 +47,7 @@ func enable_mode() -> void:
 	cut_bar.temp_speed = cut_bar.speed*1.25
 		
 	print("enabled zone")
+	current_modes.add_label("Frozen mode", zone_id, Color.SKY_BLUE)
 	tween = create_tween()
 	tween.tween_property(Engine, "time_scale", 0.5, 2).from_current()
 	
@@ -54,10 +58,14 @@ func enable_mode() -> void:
 		material.set_shader_parameter("border_size", value), 0.0, 0.1, 2.0)
 	tween.parallel().tween_method(func(value):
 		material.set_shader_parameter("distortion", value), 0.0, 0.008, 2.0)
-		
 	
+	timer.start()
 	
-	await get_tree().create_timer(7.0).timeout
+	while timer.time_left > 0:
+		current_modes.update_time(zone_id, timer.time_left)
+		await get_tree().process_frame
+	
+	current_modes.delete_label(zone_id)
 	disable_mode()
 
 func disable_mode() -> void:

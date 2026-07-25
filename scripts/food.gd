@@ -29,14 +29,14 @@ func cut(type: CutType.Result) -> void:
 		return
 	cuts_done += 1
 	
-	particles_spawner.spawn_particles()
-	
 	var remaining = cuts_required - cuts_done
 	var fraction = float(remaining) / cuts_required
 	
 	var rect = sprite_2d.region_rect
 	rect.size.x = sprite_2d.texture.get_width() * fraction
 	sprite_2d.region_rect = rect
+	
+	particles_spawner.spawn_particles()
 	
 	if cuts_done == cuts_required:
 		finished.emit(self)
