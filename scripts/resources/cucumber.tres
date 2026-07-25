@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="FoodResource" load_steps=3 format=3 uid="uid://bj2psoy5wx7yc"]
+[gd_resource type="Resource" script_class="FoodResource" load_steps=4 format=3 uid="uid://bj2psoy5wx7yc"]
 
 [ext_resource type="Script" uid="uid://sf08sknbqt15" path="res://scripts/resources/food_res.gd" id="1_0lnky"]
 [ext_resource type="Texture2D" uid="uid://dpijq134y5cv8" path="res://assets/cucumber.png" id="2_o8myk"]
+[ext_resource type="Texture2D" uid="uid://bvv58co7o8pmx" path="res://assets/cucumber_slice.png" id="2_upntg"]
 
 [resource]
 script = ExtResource("1_0lnky")
 cuts_required = 5
 sprite = ExtResource("2_o8myk")
+slice_sprite = ExtResource("2_upntg")
 juice_particles_color = Color(0, 0.662745, 0, 1)
 metadata/_custom_type_script = "uid://sf08sknbqt15"

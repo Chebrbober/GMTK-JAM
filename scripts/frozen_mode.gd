@@ -6,6 +6,8 @@ extends Node
 @onready var yellow_zone: ColorRect = $"../../CutBar/PanelContainer/MarginContainer/ManualControl/YellowZone"
 @onready var shader_rect: ColorRect = $ShaderRect
 @onready var material := shader_rect.material
+@onready var wind_stream_player: AudioStreamPlayer = $WindStreamPlayer
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @export var frozen_zone: ColorRect
 var tween: Tween
 
@@ -16,7 +18,11 @@ func create_zone() -> void:
 	frozen_zone.custom_minimum_size = Vector2(30, 40)
 	frozen_zone.color = Color8(30, 125, 255, 255)
 	frozen_zone.name = "FrozenZone"
-	
+	frozen_zone.material = material
+	frozen_zone.material.set_shader_parameter("strength", 0.7)
+	frozen_zone.material.set_shader_parameter("distortion", 0.4)
+	frozen_zone.material.set_shader_parameter("border_size", 32)
+
 	while true:
 		frozen_zone.position.x = randf_range(frozen_zone.custom_minimum_size.x, panel_container.size.x - frozen_zone.custom_minimum_size.x)
 		
@@ -28,6 +34,10 @@ func create_zone() -> void:
 func enable_mode() -> void:
 	if tween:
 		tween.kill()
+		
+	wind_stream_player.play()
+	audio_stream_player.pitch_scale = randf_range(0.9, 1.1)
+	audio_stream_player.play()
 		
 	cut_bar.temp_speed = cut_bar.speed*1.25
 		
@@ -42,13 +52,18 @@ func enable_mode() -> void:
 		material.set_shader_parameter("border_size", value), 0.0, 0.1, 2.0)
 	tween.parallel().tween_method(func(value):
 		material.set_shader_parameter("distortion", value), 0.0, 0.008, 2.0)
+		
 	
-	await get_tree().create_timer(5.0).timeout
+	
+	await get_tree().create_timer(7.0).timeout
 	disable_mode()
 
 func disable_mode() -> void:
 	print("frozen zone disabled")
 	cut_bar.temp_speed = -1
+	
+	audio_stream_player.pitch_scale = randf_range(0.9, 1.1)
+	audio_stream_player.play()
 	
 	if tween:
 		tween.kill()
@@ -62,6 +77,7 @@ func disable_mode() -> void:
 		material.set_shader_parameter("border_size", value), 0.1, 0.0, 2.0)
 	tween.parallel().tween_method(func(value):
 		material.set_shader_parameter("distortion", value), 0.008, 0.0, 2.0)
+	
 	await tween.finished
 	shader_rect.visible = false
 

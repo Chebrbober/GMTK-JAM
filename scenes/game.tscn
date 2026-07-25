@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=27 format=3 uid="uid://60kgkd16lk48"]
 
+[ext_resource type="Texture2D" uid="uid://bcobyn2d5v8bo" path="res://assets/bg.jpg" id="1_ir15t"]
 [ext_resource type="Texture2D" uid="uid://djvoj8lutmv8w" path="res://assets/cutting_board.png" id="1_trtic"]
 [ext_resource type="Script" uid="uid://bhxd7n2o5j84x" path="res://addons/settings_menus/ui/pause_menu_ui.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://xihw66v5bdwf" path="res://scripts/cut_bar.gd" id="2_lbhrr"]
@@ -14,6 +15,11 @@
 [ext_resource type="Shader" uid="uid://dwtppe48q0v5y" path="res://scripts/shaders/frozen.gdshader" id="10_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://dwp7bu1aq307t" path="res://assets/knife.png" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://mwkecv5rwwhh" path="res://scripts/knife.gd" id="12_kvuet"]
+[ext_resource type="AudioStream" uid="uid://yijrbh2g7tli" path="res://assets/freeze-sound-effect-fx.ogg" id="13_264po"]
+[ext_resource type="AudioStream" uid="uid://bo8ntvlnsd6tp" path="res://assets/drwrong__wind.ogg" id="14_1kice"]
+[ext_resource type="AudioStream" uid="uid://lq7ta2vocvic" path="res://assets/chopping-fruit_short_1.ogg" id="15_ca42v"]
+[ext_resource type="AudioStream" uid="uid://dfiwgputsckcp" path="res://assets/chopping-fruit_short_2.ogg" id="16_ssvqc"]
+[ext_resource type="AudioStream" uid="uid://byhsyat5q5sf2" path="res://assets/chopping-fruit_short_3.ogg" id="17_264po"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uwrxv"]
 font_size = 32
@@ -27,6 +33,45 @@ shader = ExtResource("10_kvpfn")
 shader_parameter/border_size = 0.2
 shader_parameter/distortion = 0.008
 shader_parameter/strength = 0.0
+
+[sub_resource type="Animation" id="Animation_kvuet"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(838, 375)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:skew")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_dinhu"]
 resource_name = "cut"
@@ -68,45 +113,6 @@ tracks/2/keys = {
 "values": [0.539307, 0.190241, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_kvuet"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(838, 375)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:skew")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_trtic"]
 _data = {
 &"RESET": SubResource("Animation_kvuet"),
@@ -114,6 +120,19 @@ _data = {
 }
 
 [node name="Game" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+size_flags_horizontal = 4
+texture = ExtResource("1_ir15t")
 
 [node name="CuttingBoard" type="Sprite2D" parent="."]
 position = Vector2(599.049, 388.75)
@@ -312,8 +331,16 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0.741176, 1, 1)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/RandomEvents/FrozenMode"]
+stream = ExtResource("13_264po")
+bus = &"Sfx"
+
+[node name="WindStreamPlayer" type="AudioStreamPlayer" parent="UI/RandomEvents/FrozenMode"]
+stream = ExtResource("14_1kice")
+bus = &"Sfx"
+
 [node name="Timer" type="Timer" parent="UI/RandomEvents"]
-wait_time = 20.0
+wait_time = 25.0
 autostart = true
 
 [node name="Knife" type="Sprite2D" parent="."]
@@ -324,11 +351,15 @@ position = Vector2(838, 375)
 scale = Vector2(1.165, 0.795)
 texture = ExtResource("12_dinhu")
 script = ExtResource("12_kvuet")
+cut_sounds = Array[AudioStream]([ExtResource("15_ca42v"), ExtResource("16_ssvqc"), ExtResource("17_264po")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Knife"]
 libraries = {
 &"": SubResource("AnimationLibrary_trtic")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Knife"]
+bus = &"Sfx"
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 script = ExtResource("1_uwrxv")
