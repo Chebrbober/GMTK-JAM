@@ -1,32 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy18vdwi6ps75"]
 
-[ext_resource type="Script" uid="uid://c4s7rghnfw4lm" path="res://addons/settings_menus/ui/main_menu_ui.gd" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://ca5xkoaeirno6" path="res://addons/settings_menus/resources/menu_theme.gd" id="2_ekxnf"]
+[ext_resource type="Theme" uid="uid://bqdn1hl5c7fvl" path="res://assets/space-worm-theme/space_worm_theme.tres" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://d0q2tg101rcmb" path="res://scripts/main_menu.gd" id="2_ekxnf"]
 
-[sub_resource type="Resource" id="Resource_bqqt6"]
-script = ExtResource("2_ekxnf")
-bg_color = Color(0.06, 0.07, 0.1, 1)
-panel_bg = Color(0.1, 0.12, 0.16, 0.95)
-panel_border = Color(0.2, 0.22, 0.28, 1)
-accent = Color(0.45, 0.7, 0.95, 1)
-accent_hover = Color(0.6, 0.8, 1, 1)
-text = Color(0.92, 0.94, 0.97, 1)
-text_dim = Color(0.65, 0.68, 0.74, 1)
-button_bg = Color(0.14, 0.16, 0.2, 1)
-button_bg_hover = Color(0.2, 0.24, 0.32, 1)
-button_bg_pressed = Color(0.1, 0.12, 0.15, 1)
-slider_track = Color(0.18, 0.2, 0.24, 1)
-slider_fill = Color(0.45, 0.7, 0.95, 1)
-title_font_size = 48
-heading_font_size = 22
-body_font_size = 14
-button_font_size = 16
-panel_corner_radius = 6
-panel_padding = 16
-menu_max_width = 480
-game_title = "KUTKATANA"
-game_subtitle = "A game for a GMTK Game Jam"
-metadata/_custom_type_script = "uid://ca5xkoaeirno6"
+[sub_resource type="LabelSettings" id="LabelSettings_wu84c"]
+font_size = 96
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -35,6 +13,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_l6cm7")
-theme_data = SubResource("Resource_bqqt6")
-play_scene_path = "uid://60kgkd16lk48"
+theme = ExtResource("1_bqqt6")
+script = ExtResource("2_ekxnf")
+path_to_game_scene = "uid://60kgkd16lk48"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "KUTKATANA"
+label_settings = SubResource("LabelSettings_wu84c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "PLAY"
+
+[node name="Quit" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
