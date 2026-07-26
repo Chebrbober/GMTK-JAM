@@ -5,6 +5,7 @@ extends Control
 @onready var countdown: Control = $"../Countdown"
 @onready var rush_mode: Node = $RushMode
 @export var succesful_cuts_done: int = 0
+@export var max_succesful_cuts_done: int = 0
 var tween: Tween
 
 func _ready() -> void:
@@ -22,6 +23,8 @@ func _on_cut_bar_mouse_clicked(type: CutType.Result) -> void:
 		label.text = str(succesful_cuts_done) + "x"
 		if succesful_cuts_done != 1:
 			check_upgrade()
+		if succesful_cuts_done > max_succesful_cuts_done:
+			max_succesful_cuts_done = succesful_cuts_done
 	else:
 		if tween:
 			tween.kill()
