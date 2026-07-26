@@ -404,7 +404,7 @@ stream = ExtResource("14_1kice")
 bus = &"Sfx"
 
 [node name="Timer" type="Timer" parent="UI/RandomEvents/FrozenMode"]
-wait_time = 7.0
+wait_time = 8.0
 one_shot = true
 ignore_time_scale = true
 

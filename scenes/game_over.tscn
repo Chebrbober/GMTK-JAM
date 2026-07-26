@@ -5,9 +5,8 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nqlu"]
 font_size = 96
-font_color = Color(0.780392, 0.239216, 0, 1)
 outline_size = 20
-outline_color = Color(0.403922, 0, 0, 1)
+outline_color = Color(0.4, 0.296, 0.296, 1)
 
 [node name="GameOver" type="Control"]
 process_mode = 3
@@ -109,5 +108,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Main menu"
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+ignore_time_scale = true
+
+[connection signal="resized" from="Panel/MarginContainer" to="." method="_on_margin_container_resized"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

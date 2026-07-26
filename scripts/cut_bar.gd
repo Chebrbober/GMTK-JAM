@@ -85,7 +85,7 @@ func update_zone_sizes(is_hit: bool) -> void:
 			yellow_zone.size.x = yellow_zone_size
 			green_zone.size.x *= (size_multiplier+0.5)
 			if temp_speed <= 0:
-				speed /= (speed_multiplier+0.45)
+				speed /= speed_multiplier
 
 func _on_food_spawner_cut_acces_changed(cut_acces: bool) -> void:
 	can_cut = cut_acces

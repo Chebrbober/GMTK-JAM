@@ -6,16 +6,18 @@ extends Node
 @onready var shader_rect: ColorRect = $ShaderRect
 @onready var cut_bar: Control = %CutBar
 @onready var current_modes: Control = $"../../CurrentModes"
-@onready var y_initial_size_x := yellow_zone.size.x
-@onready var g_initial_size_x := green_zone.size.x
 @onready var y_initial_min_size_x := yellow_zone.custom_minimum_size.x
 @onready var g_initial_min_size_x := green_zone.custom_minimum_size.x
 @onready var timer: Timer = $Timer
+var y_initial_size_x
+var g_initial_size_x
 var zone_id := get_instance_id()
 var tween: Tween
 
 
 func enable_mode() -> void:
+	y_initial_size_x = yellow_zone.size.x
+	g_initial_size_x = green_zone.size.x 
 	yellow_zone.custom_minimum_size.x = 100
 	green_zone.custom_minimum_size.x = 50
 	cut_bar.temp_speed = 500 if 500 > cut_bar.speed else cut_bar.speed+50

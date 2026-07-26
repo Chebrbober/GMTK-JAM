@@ -33,8 +33,8 @@ func create_zone() -> void:
 			break
 			
 	manual_control.add_child(frozen_zone)
-	var timer = get_tree().create_timer(5.0)
-	timer.timeout.connect(delete_on_timeout)
+	var delete_timer = get_tree().create_timer(5.0)
+	delete_timer.timeout.connect(delete_on_timeout)
 
 func enable_mode() -> void:
 	if tween:
