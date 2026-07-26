@@ -63,6 +63,8 @@ func enable_mode() -> void:
 	
 	while timer.time_left > 0:
 		current_modes.update_time(zone_id, timer.time_left)
+		if !is_inside_tree():
+			return
 		await get_tree().process_frame
 	
 	current_modes.delete_label(zone_id)

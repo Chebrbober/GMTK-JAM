@@ -16,9 +16,9 @@ var tween: Tween
 
 
 func enable_mode() -> void:
-	yellow_zone.custom_minimum_size.x = 150
-	green_zone.custom_minimum_size.x = 100
-	cut_bar.temp_speed = 500
+	yellow_zone.custom_minimum_size.x = 100
+	green_zone.custom_minimum_size.x = 50
+	cut_bar.temp_speed = 500 if 500 > cut_bar.speed else cut_bar.speed+50
 	drum_and_base_sound.play()
 	
 	current_modes.add_label("Rush mode", zone_id, Color.DARK_ORANGE)
@@ -35,6 +35,8 @@ func enable_mode() -> void:
 	
 	while timer.time_left > 0:
 		current_modes.update_time(zone_id, timer.time_left)
+		if !is_inside_tree():
+			return
 		await get_tree().process_frame
 		
 	current_modes.delete_label(zone_id)

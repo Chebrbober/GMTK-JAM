@@ -10,6 +10,8 @@ func add_label(zone_name: String, zone_id: int, color: Color, font_size := 32) -
 	label.label_settings = LabelSettings.new()
 	label.label_settings.font_color = color
 	label.label_settings.font_size = font_size
+	label.label_settings.outline_color = Color.BLACK
+	label.label_settings.outline_size = 5
 
 	v_box_container.add_child(label)
 	current_zones[zone_id] = label

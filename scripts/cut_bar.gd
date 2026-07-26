@@ -7,6 +7,7 @@ extends Control
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var indicator: ColorRect = %Indicator
 @onready var frozen_mode: Node = %FrozenMode
+@onready var label: Label = $Label
 @export var speed: float = 150
 @export var temp_speed: float = -1
 var direction: int = 1
@@ -51,18 +52,22 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 	if !can_cut:
 		return
 	if is_indicator_in_zone(green_zone):
-		print("perfect")
+		label.label_settings.font_color = Color.LIME_GREEN
+		label.text = "PERFECT"
 		mouse_clicked.emit(CutType.Result.PERFECT)
 		update_zone_sizes(true)
 	elif frozen_mode.frozen_zone and is_indicator_in_zone(frozen_mode.frozen_zone):
-		print("frozen")
+		label.label_settings.font_color = Color.DEEP_SKY_BLUE
+		label.text = "FROZEN"
 		mouse_clicked.emit(CutType.Result.FROZEN)
 	elif is_indicator_in_zone(yellow_zone):
-		print("good")
+		label.label_settings.font_color = Color.LAWN_GREEN
+		label.text = "GOOD"
 		mouse_clicked.emit(CutType.Result.GOOD)
 		update_zone_sizes(true)
 	else:
-		print('miss')
+		label.label_settings.font_color = Color.FIREBRICK
+		label.text = "MISS"
 		mouse_clicked.emit(CutType.Result.MISS)
 		update_zone_sizes(false)
 	knife.play_cut()
@@ -80,7 +85,7 @@ func update_zone_sizes(is_hit: bool) -> void:
 			yellow_zone.size.x = yellow_zone_size
 			green_zone.size.x *= (size_multiplier+0.5)
 			if temp_speed <= 0:
-				speed /= speed_multiplier
+				speed /= (speed_multiplier+0.45)
 
 func _on_food_spawner_cut_acces_changed(cut_acces: bool) -> void:
 	can_cut = cut_acces
