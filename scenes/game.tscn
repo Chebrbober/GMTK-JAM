@@ -37,6 +37,8 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_p57ef"]
 font_size = 64
 font_color = Color(0.490196, 1, 0.454902, 1)
+outline_size = 10
+outline_color = Color(0.18739, 0.485001, 0.217966, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bt5mj"]
 shader = ExtResource("9_37s47")
