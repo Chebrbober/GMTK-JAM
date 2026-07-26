@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://60kgkd16lk48"]
+[gd_scene load_steps=40 format=3 uid="uid://60kgkd16lk48"]
 
 [ext_resource type="Texture2D" uid="uid://bcobyn2d5v8bo" path="res://assets/bg.jpg" id="1_ir15t"]
 [ext_resource type="Texture2D" uid="uid://djvoj8lutmv8w" path="res://assets/cutting_board.png" id="1_trtic"]
@@ -8,13 +8,18 @@
 [ext_resource type="Script" uid="uid://gk7juyeev0lr" path="res://scripts/countdown.gd" id="4_iywne"]
 [ext_resource type="AudioStream" uid="uid://cgvw27bwr6hbe" path="res://assets/wings_flap_large.wav" id="5_bt5mj"]
 [ext_resource type="Script" uid="uid://bxt1wgg3lyg8j" path="res://scripts/combo.gd" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://sf08sknbqt15" path="res://scripts/resources/food_res.gd" id="5_sgl2t"]
 [ext_resource type="Script" uid="uid://blv2awfnepc1i" path="res://scripts/rush_mode.gd" id="6_gee14"]
+[ext_resource type="Resource" uid="uid://bj2psoy5wx7yc" path="res://scripts/resources/cucumber.tres" id="6_qouja"]
 [ext_resource type="PackedScene" uid="uid://dh2a7vqbrshx5" path="res://scenes/game_over.tscn" id="6_u5sy4"]
+[ext_resource type="Resource" uid="uid://bo1d1fr0wa8f7" path="res://scripts/resources/eggplant.tres" id="7_wljb1"]
 [ext_resource type="Script" uid="uid://c3151o76p6te8" path="res://scripts/frozen_mode.gd" id="8_0tnpc"]
 [ext_resource type="Theme" uid="uid://bqdn1hl5c7fvl" path="res://assets/space-worm-theme/space_worm_theme.tres" id="8_e1j6l"]
+[ext_resource type="Resource" uid="uid://bqailmn035a1d" path="res://scripts/resources/pineapple.tres" id="8_v2yb1"]
 [ext_resource type="Script" uid="uid://5sq84prlrrmv" path="res://scripts/random_events.gd" id="8_vtaks"]
 [ext_resource type="AudioStream" uid="uid://ryypdghnfdee" path="res://assets/amen-break-f-180-bpm-16-bars.mp3" id="9_5newe"]
 [ext_resource type="Shader" uid="uid://btitlf3h0pi1t" path="res://scripts/shaders/speed_lines.gdshader" id="9_37s47"]
+[ext_resource type="Resource" uid="uid://babb2au7ofvxr" path="res://scripts/resources/tomato.tres" id="9_js0lu"]
 [ext_resource type="Shader" uid="uid://dwtppe48q0v5y" path="res://scripts/shaders/frozen.gdshader" id="10_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://dwp7bu1aq307t" path="res://assets/knife.png" id="12_dinhu"]
 [ext_resource type="Script" uid="uid://mwkecv5rwwhh" path="res://scripts/knife.gd" id="12_kvuet"]
@@ -167,7 +172,7 @@ texture = ExtResource("1_trtic")
 process_mode = 1
 script = ExtResource("2_yqjtg")
 food_scene = ExtResource("3_lnu2h")
-resources_folder = "res://scripts/resources"
+foods = Array[ExtResource("5_sgl2t")]([ExtResource("6_qouja"), ExtResource("7_wljb1"), ExtResource("8_v2yb1"), ExtResource("9_js0lu")])
 
 [node name="ClickArea" type="Control" parent="FoodSpawner"]
 layout_mode = 3
