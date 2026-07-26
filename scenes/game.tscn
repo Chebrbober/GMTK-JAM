@@ -167,7 +167,7 @@ texture = ExtResource("1_trtic")
 process_mode = 1
 script = ExtResource("2_yqjtg")
 food_scene = ExtResource("3_lnu2h")
-resources_folder = "/home/beaver/Projects/gmtk-game-jam/scripts/resources"
+resources_folder = "res://scripts/resources"
 
 [node name="ClickArea" type="Control" parent="FoodSpawner"]
 layout_mode = 3

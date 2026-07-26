@@ -2,14 +2,18 @@
 
 ## Made by
 - Programming: Me
-- Art: Me and assets
+- Art: Assets
 - Game Design: Me
 
 ## Assets
-- Asset Name — Author (License)
-- Asset Name — Author (License)
+- Wind-Flap for the vegetables/fruits — https://opengameart.org/content/large-wings-flap
+- Freeze sound effect FX by antonsoederberg -- https://freesound.org/s/685253/ -- License: Creative Commons 0
+- Wind_3 by DrWrong -- https://freesound.org/s/848580/ -- License: Attribution 4.0
+- Amen Break F (180 BPM) (16 BARS) by Kevcio -- https://freesound.org/s/320952/ -- License: Creative Commons 0
+- PNGs for food from PNGWing
+- Space Worm by Software -- https://softwave.itch.io/godot-retro-theme-space-worm -- License: Unlicensed
+- Modern White Kitchen with marble island by Jason Briscoe https://unsplash.com/photos/modern-white-kitchen-with-marble-island-GliaHAJ3_5A -- License: Unsplash License
 
 ## Tools
-- Godot Engine
-- Blockbench
-- Aseprite / LibreSprite
+- Godot Engine 4.4
+- GIMP

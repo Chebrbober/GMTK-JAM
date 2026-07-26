@@ -1,7 +1,7 @@
 class_name FoodSpawner extends Node
 
 @export var food_scene: PackedScene
-@export_global_dir var resources_folder
+@export_dir var resources_folder
 @export var foods: Array[FoodResource]
 @onready var wind_audio: AudioStreamPlayer = $WindAudio
 @onready var screen_size = get_viewport().get_visible_rect().size
